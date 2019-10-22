@@ -10,37 +10,45 @@
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body ng-app="myApp" ng-controller="UserController as ctrl">
-<h2>A Fresh New Take On Spring + Angular</h2>
-<button>Fetch Users</button>
+<h2>Cat Collection App</h2>
 <div>
-    <h2 ng-bind="ctrl.richString">1</h2>
-    <h2 ng-bind="ctrl.two"></h2>
-    <h2 ng-bind="ctrl.local"></h2>
-    <h2 ng-bind="ctrl.service"></h2>
-    <img src="https://images.pexels.com/photos/127028/pexels-photo-127028.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500">
-    <img src="${pageContext.request.contextPath}/static/images/cat-1.jpg">
+    <img ng-src="https://placekitten.com/98/139">
     <table>
         <thead>
         <tr>
             <th>ID</th>
             <th>Name</th>
-            <th>Address</th>
             <th>Email</th>
+            <th>Image</th>
             <th width="20%"></th>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="u in ctrl.users">
             <td ng-bind="u.id"></td>
-            <td ng-bind="u.username"></td>
-            <td ng-bind="u.address"></td>
+            <td ng-bind="u.name"></td>
             <td ng-bind="u.email"></td>
+            <td><img ng-src="{{u.image}}"></td>
             <td>
                 <button>Edit</button><button>Delete</button>
             </td>
         </tr>
         </tbody>
     </table>
+    <form action="/totempole_war_exploded/createUser" name="User" method="POST">
+        ID:<input type="text" id="id" name="id"><br>
+        Name:<input type="text" id="name" name="name"><br>
+        Email:<input type="text" id="email" name="email"><br>
+        Photo URL:<input type="text" id="image" name="image"><br>
+        <button type="submit">Create</button>
+    </form>
+    <form ng-submit="submit()" ng-controller="UserController">
+        ID:<input type="text"><br>
+        Name:<input type="text" ng-model="name"/><br>
+        Email:<input type="text" ng-model="email"><br>
+        Photo URL:<input type="text" ng-model="image"><br>
+        <button type="submit">Create</button>
+    </form>
 </div>
 </body>
 </html>

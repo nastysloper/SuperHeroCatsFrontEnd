@@ -3,12 +3,15 @@ package com.nastysloper.service;
 import com.nastysloper.model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
 
-    User findById(long id);
+    Optional<User> findById(long id);
 
-    User findByName(String name);
+    Optional<User> findByName(String name);
 
     List<User> findAllUsers();
+
+    User createNewUser(long id, String name, String email, String image);
 }

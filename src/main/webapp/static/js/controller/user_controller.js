@@ -2,12 +2,18 @@
 
 angular.module('myApp').controller('UserController', ['$scope', 'UserService', function ($scope, UserService) {
     var self = this;
-    self.user = {id: null, username: '', email: ''};
+    self.user = {id: null, username: '', email: '', image: ''};
     self.users = [];
-    self.richString = "getRich called successfully";
-    self.two = "Twosome";
-    self.local = fetchBarUser();
-    self.service = UserService.fetchServiceUser();
+    $scope.submit = function() {
+        console.log("form has been submitted...");
+        UserService.createNewUser($scope.name, $scope.email, "https://placekitten.com/96/139");
+        console.log(self.users);
+        console.log($scope.name);
+        console.log($scope.email);
+        console.log($scope.image);
+        //self.users.push({ id: 4, name: $scope.name, email: $scope.email, image: "https://placekitten.com/96/139"});
+        console.log(self.users);
+    };
 
     fetchAllUsers();
 
@@ -19,9 +25,5 @@ angular.module('myApp').controller('UserController', ['$scope', 'UserService', f
             function (reason) {
                 console.error('Error while fetching users => ' + reason);
             });
-    }
-
-    function fetchBarUser() {
-        return "foo bar";
     }
 }]);
