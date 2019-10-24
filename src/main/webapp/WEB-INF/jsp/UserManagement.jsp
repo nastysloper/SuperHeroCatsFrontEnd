@@ -5,12 +5,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src='${pageContext.request.contextPath}/static/js/app.js'></script>
     <script src='${pageContext.request.contextPath}/static/js/service/user_service.js'></script>
+    <!-- The controller has a dependency on the User Service -->
     <script src='${pageContext.request.contextPath}/static/js/controller/user_controller.js'></script>
 
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body ng-app="myApp" ng-controller="UserController as ctrl">
-<h2>Cat Collection App</h2>
+<h2>Super Hero Cat App</h2>
+<h3>The Place Where Cats Save The Day... Every Day</h3>
 <div>
     <img ng-src="https://placekitten.com/98/139">
     <table>
@@ -35,18 +37,21 @@
         </tr>
         </tbody>
     </table>
+    <!-- synchronous submit. remove after phase 1 -->
     <form action="/totempole_war_exploded/createUser" name="User" method="POST">
+        <h3>Synchronous Submit</h3>
         ID:<input type="text" id="id" name="id"><br>
         Name:<input type="text" id="name" name="name"><br>
         Email:<input type="text" id="email" name="email"><br>
         Photo URL:<input type="text" id="image" name="image"><br>
         <button type="submit">Create</button>
     </form>
-    <form ng-submit="submit()" ng-controller="UserController">
-        ID:<input type="text"><br>
-        Name:<input type="text" ng-model="name"/><br>
-        Email:<input type="text" ng-model="email"><br>
-        Photo URL:<input type="text" ng-model="image"><br>
+    <form ng-submit="ctrl.submit()">
+        <h3>Async Submit</h3>
+        ID:<input type="text" ng-model="ctrl.user.id"><br>
+        Name:<input type="text" ng-model="ctrl.user.name"/><br>
+        Email:<input type="text" ng-model="ctrl.user.email"><br>
+        Photo URL:<input type="text" ng-model="ctrl.user.image"><br>
         <button type="submit">Create</button>
     </form>
 </div>

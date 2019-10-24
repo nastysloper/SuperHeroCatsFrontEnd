@@ -16,7 +16,7 @@ public class UserController {
    @Autowired
    UserServiceImpl userService;
 
-   @RequestMapping(value = "/users", method = RequestMethod.GET)
+   @RequestMapping(value = "/user", method = RequestMethod.GET)
     public ResponseEntity<List<User>> listAllUsers() {
        List<User> users = userService.findAllUsers();
        if (users.isEmpty()) {
@@ -25,10 +25,18 @@ public class UserController {
        return new ResponseEntity<>(users, HttpStatus.OK);
    }
 
+   // Synchronous request
    @RequestMapping(value="/createUser", method = RequestMethod.POST)
     public ResponseEntity<User> createNewUser(@ModelAttribute("User") User newUser) {
        User user = userService.createNewUser(newUser.getId(), newUser.getName(), newUser.getEmail(), newUser.getImage());
        return new ResponseEntity<>(user, HttpStatus.OK);
 
+   }
+
+   // Async request
+   @RequestMapping(value="/user", method = RequestMethod.POST)
+    public ResponseEntity<User> createAsyncUser(@RequestBody User newUser) {
+       User user = userService.createNewUser(newUser.getId(), newUser.getName(), newUser.getEmail(), newUser.getImage());
+       return new ResponseEntity<>(user, HttpStatus.OK);
    }
 }
