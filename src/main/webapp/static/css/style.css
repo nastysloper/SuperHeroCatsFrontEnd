@@ -1,0 +1,68 @@
+body {
+    background-color: floralwhite;
+}
+
+img {
+    border-radius: 10px;
+}
+
+table {
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+    border: purple solid 3px;
+    background-color: #ff99ff;
+}
+
+thead th:nth-child(1) {
+    width: 16%;
+}
+
+thead th:nth-child(2) {
+    width: 16%;
+}
+
+thead th:nth-child(3) {
+    width: 16%;
+}
+
+thead th:nth-child(4) {
+    width: 16%;
+}
+
+thead th:nth-child(5) {
+    width: 16%;
+}
+
+thead th:nth-child(6) {
+    width: 16%;
+}
+/* I don't think this works */
+form:nth-child(1) {
+    padding-top: 20px;
+}
+
+h2, h3, th, td, form {
+    font-family: 'Nunito', sans-serif;
+}
+
+th, td {
+    padding: 12px;
+}
+
+tbody td {
+    text-align: center;
+}
+
+form {
+    width: 300px;
+    height: 300px;
+}
+
+input {
+    float: right;
+}
+
+.title {
+    text-align: center;
+}

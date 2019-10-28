@@ -1,20 +1,20 @@
 package com.nastysloper.model;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
-public class User {
+public class Cat {
 
     private long id;
     private String name;
-    private String email;
+    private String power;
+    private String weakness;
     private String image;
 
-    public User() {};
+    public Cat() {};
 
-    public User(long id, String name, String email, String image) {
-        this.id = id;
+    public Cat(String name, String power, String weakness, String image) {
+        this.id = 1;
         this.name = name;
-        this.email = email;
+        this.power = power;
+        this.weakness = weakness;
         this.image = image;
     }
 
@@ -34,12 +34,20 @@ public class User {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public String getPower() {
+        return power;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setPower(String email) {
+        this.power = email;
+    }
+
+    public String getWeakness() {
+        return weakness;
+    }
+
+    public void setWeakness(String weakness) {
+        this.weakness = weakness;
     }
 
     public void setImage(String image) { this.image = image; }
@@ -57,7 +65,7 @@ public class User {
         if (this == null || this.getClass() != other.getClass()) {
             return false;
         }
-        User user = (User) other;
-        return (this.getId() == user.getId() && this.getName().equals(user.getName()));
+        Cat cat = (Cat) other;
+        return (this.getId() == cat.getId() && this.getName().equals(cat.getName()));
     }
 }
