@@ -44,7 +44,7 @@
     <form action="/totempole_war_exploded/createCat" name="User" method="POST">
         <h3>Synchronous Submit</h3>
         <div>Photo URL:<input type="text" id="image" name="image"></div><br>
-        <div>Name:<input type="text" id="name" name="name"></div><br>
+        <div>Name:<input type="text" id="name" name="name" required></div><br>
         <div>Power:<input type="text" id="power" name="power"></div><br>
         <div>Weakness:<input type="text" id="weakness" name="weakness"></div><br>
         <button type="submit">Create</button>
@@ -52,7 +52,7 @@
     <form ng-submit="ctrl.submit()">
         <h3>Async Submit</h3>
         <div>Photo URL:<input type="text" ng-model="ctrl.cat.image"></div><br>
-        <div>Name:<input type="text" ng-model="ctrl.cat.name"/></div><br>
+        <div>Name:<input type="text" ng-model="ctrl.cat.name" required></div><br>
         <div>Power:<input type="text" ng-model="ctrl.cat.power"></div><br>
         <div>Weakness:<input type="text" ng-model="ctrl.cat.weakness"></div><br>
         <button type="submit">Create</button>

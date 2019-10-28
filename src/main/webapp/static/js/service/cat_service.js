@@ -5,7 +5,9 @@ angular.module('myApp').factory('CatService', ['$http', '$q', function($http, $q
 
     var factory = {
         fetchAllCats: fetchAllCats,
-        createCat: createCat
+        createCat: createCat,
+        updateCat: updateCat,
+        deleteCat: deleteCat
     };
 
     function fetchAllCats() {
@@ -33,6 +35,32 @@ angular.module('myApp').factory('CatService', ['$http', '$q', function($http, $q
                     deferred.reject(errResponse);
                 }
             );
+        return deferred.promise;
+    }
+
+    function updateCat(cat, id) {
+        var deferred = $q.defer();
+        $http.put(REST_SERVICE_URI+id, cat)
+        .then(function(response) {
+            deferred.resolve(response.data);
+        },
+        function(errResponse) {
+            console.error('Error while updating Cat');
+            deferred.reject(errResponse);
+        });
+        return deferred.promise;
+    }
+
+    function deleteCat(id) {
+        var deferred = $q.defer();
+        $http.delete(REST_SERVICE_URI+id)
+            .then(function(response) {
+                deferred.resolve(response.data);
+            },
+            function(errResponse) {
+            console.error('Error while deleting Cat');
+            deferred.reject(errResponse);
+            });
         return deferred.promise;
     }
 
