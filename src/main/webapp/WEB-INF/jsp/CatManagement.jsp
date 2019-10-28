@@ -30,19 +30,20 @@
             <td ng-bind="c.weakness"></td>
             <td>
                 <button name="delete" ng-click="ctrl.remove(c.id)">Delete</button>
+                <button>Delete</button>
             </td>
         </tr>
         </tbody>
     </table>
     <h2>Add New Super Hero Cat</h2>
     <!-- synchronous submit. remove after phase 1 -->
-    <form action="/totempole_war_exploded/createCat" name="User" method="POST">
+    <form action="/totempole_war_exploded/createCat" name="Cat" method="POST">
         <h3>Synchronous Submit</h3>
-        <div>Photo URL:<input type="text" id="image" name="image"></div><br>
-        <div>Name:<input type="text" id="name" name="name" required></div><br>
-        <div>Power:<input type="text" id="power" name="power"></div><br>
-        <div>Weakness:<input type="text" id="weakness" name="weakness"></div><br>
-        <button type="submit">Create</button>
+        <div><label for="image">Photo URL:<input type="text" id="image" name="image"></label></div><br>
+        <div><label for="name">Name:<input type="text" id="name" name="name" required></label></div><br>
+        <div><label for="power">Power:<input type="text" id="power" name="power"></label></div><br>
+        <div><label for="weakness">Weakness:<input type="text" id="weakness" name="weakness"></label></div><br>
+        <input type="submit" value="Create" />
     </form>
     <form name="catForm" ng-submit="ctrl.submit()">
         <h3>Async Submit</h3>

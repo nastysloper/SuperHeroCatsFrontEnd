@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface CatService {
 
-    Optional<Cat> findById(long id);
+    Optional<Cat> findById(Long id);
 
     Optional<Cat> findByName(String name);
 
@@ -15,5 +15,7 @@ public interface CatService {
 
     Cat createNewCat(String name, String power, String weakness, String image);
 
-    Cat delete(Long id);
+    void delete(Long id);
+
+    boolean catExists(Cat cat);
 }

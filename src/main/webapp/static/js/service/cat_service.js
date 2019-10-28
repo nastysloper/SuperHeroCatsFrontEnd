@@ -1,8 +1,7 @@
 'use strict';
 
-angular.module('myApp').factory('CatService', ['$http', '$q', function ($http, $q) {
+angular.module('myApp').factory('CatService', ['$http', function ($http) {
     var REST_SERVICE_URI = "http://localhost:8080/totempole_war_exploded/";
-    var ALL_CATS = "http://localhost:8080/totempole_war_exploded/cats";
 
     var factory = {
         fetchAllCats: fetchAllCats,
@@ -12,13 +11,12 @@ angular.module('myApp').factory('CatService', ['$http', '$q', function ($http, $
     };
 
     function fetchAllCats() {
-        return $http.get(ALL_CATS)
+        return $http.get(REST_SERVICE_URI + 'cats')
             .then(function (response) {
                 return response.data;
             }).catch(function (errResponse) {
                 console.error('Error while fetching cats');
             });
-
     }
 
     function createCat(cat) {
@@ -31,22 +29,18 @@ angular.module('myApp').factory('CatService', ['$http', '$q', function ($http, $
     }
 
     function updateCat(cat, id) {
-        var deferred = $q.defer();
         $http.put(REST_SERVICE_URI + id, cat)
             .then(function (response) {
-                    deferred.resolve(response.data);
-                },
-                function (errResponse) {
-                    console.error('Error while updating Cat');
-                    deferred.reject(errResponse);
-                });
-        return deferred.promise;
+                return (response.data);
+            }).catch(function (err) {
+            console.error('Error while updating Cat', err);
+        });
     }
 
     function deleteCat(id) {
         $http.delete(REST_SERVICE_URI + 'remove/' + id)
             .then(function (response) {
-                return (response.data);
+                return (response.data)
             }).catch(function (err) {
             console.error('Error while deleting Cat');
         });

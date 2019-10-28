@@ -15,8 +15,8 @@ angular.module('myApp').controller('CatController', ['$scope', 'CatService', fun
         CatService.fetchAllCats()
             .then(function (data) {
                 self.cats = data;
-            }, function (error) {
-                console.log(error);
+            }, function (errResponse) {
+                console.log("Error while fetching cats", errResponse);
             });
     }
 
@@ -25,32 +25,68 @@ angular.module('myApp').controller('CatController', ['$scope', 'CatService', fun
             .then(
                 fetchCats,
                 function (errResponse) {
-                    console.error('Error while creating Super Cat');
+                    console.error('Error while creating Super Cat', errResponse);
+                }
+            );
+        console.log("Super cat created!")
+    }
+
+    function submit() {
+        if (self.cat.id === null) {
+            console.log('Saving New Super Hero Cat', self.cat);
+            createCat(self.cat);
+        } else {
+            updateCat(self.cat, self.cat.id);
+            console.log('Cat updated with id ', self.cat.id);
+        }
+    }
+
+    function updateCat(cat, id) {
+        CatService.updateCat(cat, id)
+            .then(
+                fetchAllCats,
+                function (errResponse) {
+                    console.error('Error while updating cat');
                 }
             );
     }
 
-    function submit() {
-        console.log('Saving New Super Hero Cat', self.cat);
-        createCat(self.cat);
+    function deleteCat(id) {
+        CatService.deleteCat(id)
+            .then(
+                fetchAllCats,
+                function (errResponse) {
+                    console.error('Error while deleting cat');
+                }
+            );
     }
 
     function edit(id) {
-        console.log("ID to be edited is " + id);
+        console.log('id to be edited', id);
+        for (var i = 0; i < self.cats.length; i++) {
+            if (self.cats[i].id === id) {
+                self.cat = angular.copy(self.cats[i]);
+                break;
+            }
+        }
     }
 
     function remove(id) {
-        console.log("ID to be removed is " + id);
+        console.log('id to be deleted', id);
+        if (self.cat.id === id) {
+            reset(); // clear the form if the cat will be deleted.
+        }
+        deleteCat(id);
     }
 
     function reset() {
-        self.user = {
+        self.cat = {
             id: null,
             name: '',
             power: '',
             image: '',
             weakness: ''
-        };
+        }
         $scope.catForm.$setPristine();
     }
 }]);

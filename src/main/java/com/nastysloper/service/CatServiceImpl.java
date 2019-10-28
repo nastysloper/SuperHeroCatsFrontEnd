@@ -17,10 +17,10 @@ public class CatServiceImpl implements CatService {
     }
 
     @Override
-    public Optional<Cat> findById(long id) {
-        for (Cat u : cats) {
-            if (u.getId() == id) {
-                return Optional.of(u);
+    public Optional<Cat> findById(Long id) {
+        for (Cat c : cats) {
+            if (c.getId() == id) {
+                return Optional.of(c);
             }
         }
         return Optional.empty();
@@ -28,9 +28,9 @@ public class CatServiceImpl implements CatService {
 
     @Override
     public Optional<Cat> findByName(String name) {
-        for (Cat u : cats) {
-            if (u.getName() == name) {
-                return Optional.of(u);
+        for (Cat c : cats) {
+            if (c.getName() == name) {
+                return Optional.of(c);
             }
         }
         return Optional.empty();
@@ -50,8 +50,12 @@ public class CatServiceImpl implements CatService {
     }
 
     @Override
-    public Cat delete(Long id) {
-
+    public void delete(Long id) {
+        for (Cat c : cats) {
+            if (c.getId() == id) {
+                cats.remove(c);
+            }
+        }
     }
 
     private static Long createId() {
@@ -71,5 +75,9 @@ public class CatServiceImpl implements CatService {
         dummyCats.add(c3);
 
         return dummyCats;
+    }
+
+    public boolean catExists(Cat cat) {
+        return !findByName(cat.getName()).isEmpty();
     }
 }
