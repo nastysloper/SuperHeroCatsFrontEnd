@@ -42,7 +42,7 @@ form:nth-child(1) {
     padding-top: 20px;
 }
 
-h2, h3, th, td, form {
+h2, h3, th, td, form, .title-link {
     font-family: 'Nunito', sans-serif;
 }
 
@@ -65,4 +65,16 @@ input {
 
 .title {
     text-align: center;
+}
+
+.title-link {
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    margin: 0 auto;
+}
+
+.hero-cat {
+    text-align: center;
+    margin: 0 auto;
 }

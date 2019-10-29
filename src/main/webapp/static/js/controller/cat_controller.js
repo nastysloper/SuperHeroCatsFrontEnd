@@ -6,23 +6,21 @@ angular.module('myApp').controller('CatController', ['$scope', 'CatService', fun
     self.cats = [];
     self.submit = submit;
 
+    fetchCats();
 
-    fetchAllCats();
-
-    function fetchAllCats() {
+    function fetchCats() {
         CatService.fetchAllCats()
-            .then(function (value) {
-                self.cats = value;
-            },
-            function (reason) {
-                console.error('Error while fetching Super Hero Cats => ' + reason);
+            .then(function (data) {
+                self.cats = data;
+            }, function (error) {
+                console.log(error);
             });
     }
 
-    function createCat(cat){
+    function createCat(cat) {
         CatService.createCat(cat)
             .then(
-                fetchAllCats,
+                fetchCats,
                 function(errResponse){
                     console.error('Error while creating Super Cat');
                 }

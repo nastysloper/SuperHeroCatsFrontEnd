@@ -10,6 +10,11 @@ public class IndexController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String getIndexPage() {
+        return "Index";
+    }
+
+    @RequestMapping(value = "/homepage", method = RequestMethod.GET)
+    public String goHome() {
         return "CatManagement";
     }
 }

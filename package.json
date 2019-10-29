@@ -1,0 +1,27 @@
+{
+  "name": "totempole",
+  "version": "1.0.0",
+  "description": "Angular front-end supported by a Spring MVC backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nastysloper/Spring-Angular-Cat-Finder.git"
+  },
+  "keywords": [
+    "angular",
+    "spring",
+    "java"
+  ],
+  "author": "Rich Vogt",
+  "license": "MIT",
+  "dependencies": {
+    "angular": "^1.7.8"
+  },
+  "bugs": {
+    "url": "https://github.com/nastysloper/Spring-Angular-Cat-Finder/issues"
+  },
+  "homepage": "https://github.com/nastysloper/Spring-Angular-Cat-Finder#readme"
+}
