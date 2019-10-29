@@ -21,7 +21,7 @@ angular.module('myApp').controller('CatController', ['$scope', 'CatService', fun
         CatService.createCat(cat)
             .then(
                 fetchCats,
-                function(errResponse){
+                function (errResponse) {
                     console.error('Error while creating Super Cat');
                 }
             );

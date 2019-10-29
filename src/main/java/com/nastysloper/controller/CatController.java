@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class CatController {
    @Autowired
    CatServiceImpl CatService;
 
-   @RequestMapping(value = "/cat", method = RequestMethod.GET)
+   @RequestMapping(value = "/cat/", method = RequestMethod.GET)
     public ResponseEntity<List<Cat>> listAllCats() {
        List<Cat> cats = CatService.findAllCats();
        if (cats.isEmpty()) {
@@ -26,14 +27,13 @@ public class CatController {
 
    // Synchronous request
    @RequestMapping(value="/createCat", method = RequestMethod.POST)
-    public ResponseEntity<Cat> createNewCat(@ModelAttribute("Cat") Cat newCat) {
+    public ModelAndView createNewCat(@ModelAttribute("Cat") Cat newCat) {
        Cat cat = CatService.createNewCat(newCat.getName(), newCat.getPower(), newCat.getWeakness(), newCat.getImage());
-       return new ResponseEntity<>(cat, HttpStatus.OK);
-
+       return new ModelAndView("CatManagement");
    }
 
    // Async request
-   @RequestMapping(value="/cat", method = RequestMethod.POST)
+   @RequestMapping(value="/cat/", method = RequestMethod.POST)
     public ResponseEntity<Cat> createAsyncCat(@RequestBody Cat newCat) {
        Cat cat = CatService.createNewCat(newCat.getName(), newCat.getPower(), newCat.getWeakness(), newCat.getImage());
        return new ResponseEntity<>(cat, HttpStatus.OK);
