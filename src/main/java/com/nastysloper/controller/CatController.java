@@ -34,38 +34,49 @@ public class CatController {
         return new ModelAndView("CatManagement");
     }
 
-   @RequestMapping(value = "/cat/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-   public ResponseEntity<Cat> getCat(@PathVariable("id") long id) {
-      System.out.println("Fetching cat with id " + id);
-      try {
-         Cat cat = catService.findById(id).get();
-         return new ResponseEntity<Cat>(cat, HttpStatus.OK);
-      } catch (NoSuchElementException e) {
-         System.out.println("Cat with id " + id + " not found.");
-         return new ResponseEntity<Cat>(HttpStatus.NOT_FOUND);
-      }
-   }
+    @RequestMapping(value = "/cat/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Cat> getCat(@PathVariable("id") Long id) {
+        System.out.println("Fetching cat with id " + id);
+        try {
+            Cat cat = catService.findById(id).get();
+            return new ResponseEntity<Cat>(cat, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            System.out.println("Cat with id " + id + " not found.");
+            return new ResponseEntity<Cat>(HttpStatus.NOT_FOUND);
+        }
+    }
 
-   // Async request
-   @RequestMapping(value="/add", method = RequestMethod.POST)
+    // Async request
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ResponseEntity<Cat> createAsyncCat(@RequestBody Cat newCat) {
-      if (catService.catExists(newCat)) {
-         System.out.println("A super hero cat named " + newCat.getName() + " already exists.");
-         return new ResponseEntity<>(HttpStatus.CONFLICT);
-      }
-      System.out.println("Creating super hero cat " + newCat.getName() + ".");
-      Cat cat = catService.createNewCat(newCat.getName(), newCat.getPower(), newCat.getWeakness(), newCat.getImage());
-      return new ResponseEntity<>(cat, HttpStatus.CREATED);
-   }
+        if (catService.catExists(newCat)) {
+            System.out.println("A super hero cat named " + newCat.getName() + " already exists.");
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+        System.out.println("Creating super hero cat " + newCat.getName() + ".");
+        Cat cat = catService.createNewCat(newCat.getName(), newCat.getPower(), newCat.getWeakness(), newCat.getImage());
+        return new ResponseEntity<>(cat, HttpStatus.CREATED);
+    }
 
-   @RequestMapping(value = "/cat/{id}", method = RequestMethod.DELETE)
-   public ResponseEntity<Cat> deleteCat(@PathVariable("id") long id) {
-      System.out.println("Fetching and deleting Cat with id " + id);
-      if (catService.findById(id).isEmpty()) {
-         System.out.println("Unable to delete cat with id " + id + ".");
-         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-      }
-      catService.delete(id);
-      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-   }
+    @RequestMapping(value = "/cat/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Cat> deleteCat(@PathVariable("id") Long id) {
+        System.out.println("Fetching and deleting Cat with id " + id);
+        if (catService.findById(id).isEmpty()) {
+            System.out.println("Unable to delete cat with id " + id + ".");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        catService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @RequestMapping(value = "/cat/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Cat> updateCat(@PathVariable("id") Long id, @RequestBody Cat cat) {
+        Cat thisCat = catService.findById(id).get();
+        System.out.println("Updating Cat with id " + id);
+        thisCat.setName(cat.getName());
+        thisCat.setPower(cat.getPower());
+        thisCat.setWeakness(cat.getWeakness());
+        catService.updateCat(thisCat);
+        return new ResponseEntity<Cat>(thisCat, HttpStatus.OK);
+    }
 }

@@ -13,7 +13,7 @@ public class IndexController {
         return "Index";
     }
 
-    @RequestMapping(value = "/homepage", method = RequestMethod.GET)
+    @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String goHome() {
         return "CatManagement";
     }

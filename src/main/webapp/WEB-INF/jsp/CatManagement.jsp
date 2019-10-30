@@ -29,8 +29,8 @@
             <td ng-bind="c.power"></td>
             <td ng-bind="c.weakness"></td>
             <td>
+                <button name="edit" ng-click="ctrl.edit(c.id)">Edit</button>
                 <button name="delete" ng-click="ctrl.remove(c.id)">Delete</button>
-                <button>Delete</button>
             </td>
         </tr>
         </tbody>
@@ -43,7 +43,7 @@
         <div><label for="name">Name:<input type="text" id="name" name="name" required></label></div><br>
         <div><label for="power">Power:<input type="text" id="power" name="power"></label></div><br>
         <div><label for="weakness">Weakness:<input type="text" id="weakness" name="weakness"></label></div><br>
-        <input type="submit" value="Create" />
+        <input type="submit" value="Submit" />
     </form>
     <form name="catForm" ng-submit="ctrl.submit()">
         <h3>Async Submit</h3>
@@ -51,7 +51,8 @@
         <div><label for="name">Name:</label><input type="text" ng-model="ctrl.cat.name" name="name" required></div><br>
         <div><label for="power">Power:</label><input type="text" ng-model="ctrl.cat.power" name="power"></div><br>
         <div><label for="weakness">Weakness:</label><input type="text" ng-model="ctrl.cat.weakness" name="weakness"></div><br>
-        <button type="submit">Create</button>
+        <input type="submit" value="{{ctrl.cat.id ? 'Update' : 'Create'}}" />
+        <input type="submit" ng-click="ctrl.reset()" value="Clear" />
     </form>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>

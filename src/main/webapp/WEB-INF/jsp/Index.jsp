@@ -11,7 +11,7 @@
     <div>
     <h2 class="title">Super Hero Cat App</h2>
     <div class="hero-cat"><img src="https://www.catster.com/wp-content/uploads/2015/06/cat-gentlemanjim.jpg" /></div>
-    <h2><a class="title-link" href="${pageContext.request.contextPath}/homepage">ENTER</a></h2>
+    <h2><a class="title-link" href="${pageContext.request.contextPath}/home">ENTER</a></h2>
     </div>
 </body>
 </html>

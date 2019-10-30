@@ -17,5 +17,7 @@ public interface CatService {
 
     void delete(Long id);
 
+    void updateCat(Cat cat);
+
     boolean catExists(Cat cat);
 }

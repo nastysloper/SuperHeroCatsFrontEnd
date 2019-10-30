@@ -77,6 +77,11 @@ public class CatServiceImpl implements CatService {
         return dummyCats;
     }
 
+    public void updateCat(Cat cat) {
+        int i = cats.indexOf(cat);
+        cats.set(i, cat);
+    }
+
     public boolean catExists(Cat cat) {
         return !findByName(cat.getName()).isEmpty();
     }

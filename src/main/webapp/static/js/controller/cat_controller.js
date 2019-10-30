@@ -8,6 +8,7 @@ angular.module('myApp').controller('CatController', ['$scope', 'CatService', fun
     self.edit = edit;
     self.remove = remove;
     self.reset = reset;
+    self.hasCat = hasCat;
 
     fetchCats();
 
@@ -15,19 +16,17 @@ angular.module('myApp').controller('CatController', ['$scope', 'CatService', fun
         CatService.fetchAllCats()
             .then(function (data) {
                 self.cats = data;
-            }, function (errResponse) {
-                console.log("Error while fetching cats", errResponse);
-            });
+            }).catch(function (errResponse) {
+            console.log("Error while fetching cats", errResponse);
+        });
     }
 
     function createCat(cat) {
         CatService.createCat(cat)
-            .then(
-                fetchCats,
-                function (errResponse) {
-                    console.error('Error while creating Super Cat', errResponse);
-                }
-            );
+            .then(fetchCats)
+            .catch(function (errResponse) {
+                console.error('Error while creating Super Cat', errResponse);
+            });
         console.log("Super cat created!")
     }
 
@@ -43,22 +42,18 @@ angular.module('myApp').controller('CatController', ['$scope', 'CatService', fun
 
     function updateCat(cat, id) {
         CatService.updateCat(cat, id)
-            .then(
-                fetchAllCats,
-                function (errResponse) {
-                    console.error('Error while updating cat');
-                }
-            );
+            .then(fetchCats)
+            .catch(function (errResponse) {
+                console.error('Error while updating cat');
+            });
     }
 
-    function deleteCat(id) {
+    function remove(id) {
         CatService.deleteCat(id)
-            .then(
-                fetchAllCats,
-                function (errResponse) {
-                    console.error('Error while deleting cat');
-                }
-            );
+            .then(fetchCats)
+            .catch(function (errResponse) {
+                console.error('Error while deleting cat');
+            });
     }
 
     function edit(id) {
@@ -71,12 +66,14 @@ angular.module('myApp').controller('CatController', ['$scope', 'CatService', fun
         }
     }
 
-    function remove(id) {
-        console.log('id to be deleted', id);
-        if (self.cat.id === id) {
-            reset(); // clear the form if the cat will be deleted.
-        }
-        deleteCat(id);
+    function hasCat() {
+        self.cats.forEach(function (cat) {
+            if (cat.name === self.cat.name) {
+                console.log("yes, this cat is already in the list...");
+                return true;
+            }
+        });
+        return false;
     }
 
     function reset() {

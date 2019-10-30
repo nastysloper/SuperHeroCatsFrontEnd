@@ -20,7 +20,7 @@ angular.module('myApp').factory('CatService', ['$http', function ($http) {
     }
 
     function createCat(cat) {
-        return $http.post(REST_SERVICE_URI, cat)
+        return $http.post(REST_SERVICE_URI + 'add', cat)
             .then(function (response) {
                 return response.data;
             }).catch(function (err) {
@@ -29,21 +29,21 @@ angular.module('myApp').factory('CatService', ['$http', function ($http) {
     }
 
     function updateCat(cat, id) {
-        $http.put(REST_SERVICE_URI + id, cat)
+        return $http.put(REST_SERVICE_URI + 'cat/' + id, cat)
             .then(function (response) {
                 return (response.data);
             }).catch(function (err) {
-            console.error('Error while updating Cat', err);
-        });
+                console.error('Error while updating Cat', err);
+            });
     }
 
     function deleteCat(id) {
-        $http.delete(REST_SERVICE_URI + 'remove/' + id)
+        return $http.delete(REST_SERVICE_URI + 'cat/' + id)
             .then(function (response) {
-                return (response.data)
+                return response.data;
             }).catch(function (err) {
-            console.error('Error while deleting Cat');
-        });
+                console.error('Error while deleting Cat');
+            });
     }
 
     return factory
