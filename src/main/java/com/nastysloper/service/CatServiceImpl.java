@@ -9,11 +9,16 @@ import java.util.Optional;
 @Service("CatService")
 public class CatServiceImpl implements CatService {
 
-    private ArrayList<Cat> Cats = populateMockCats();
+    private static Long counter = 0L;
+    private static ArrayList<Cat> cats;
+
+    static {
+        cats = populateMockCats();
+    }
 
     @Override
     public Optional<Cat> findById(long id) {
-        for (Cat u : Cats) {
+        for (Cat u : cats) {
             if (u.getId() == id) {
                 return Optional.of(u);
             }
@@ -23,7 +28,7 @@ public class CatServiceImpl implements CatService {
 
     @Override
     public Optional<Cat> findByName(String name) {
-        for (Cat u : Cats) {
+        for (Cat u : cats) {
             if (u.getName() == name) {
                 return Optional.of(u);
             }
@@ -33,24 +38,33 @@ public class CatServiceImpl implements CatService {
 
     @Override
     public ArrayList<Cat> findAllCats() {
-        return Cats;
+        return cats;
     }
 
     @Override
     public Cat createNewCat(String name, String power, String weakness, String image) {
         Cat cat = new Cat(name, power, weakness, image);
-        Cats.add(cat);
+        cat.setId(createId());
+        cats.add(cat);
         return cat;
-}
+    }
 
-    public ArrayList<Cat> populateMockCats() {
-        ArrayList<Cat> Cats = new ArrayList<>();
-        Cat u1 = new Cat("Fluffy", "Fur acts as armor", "Afraid of heights", "https://placekitten.com/96/139");
-        Cat u2 = new Cat("Tiny", "Fits into small spaces", "Takes too many naps", "https://placekitten.com/76/139");
-        Cat u3 = new Cat("Werewolf", "Meows loudly", "Hates loud noises", "https://placekitten.com/75/139");
-        Cats.add(u1);
-        Cats.add(u2);
-        Cats.add(u3);
-        return Cats;
+    private static Long createId() {
+        return counter++;
+    }
+
+    private static ArrayList<Cat> populateMockCats() {
+        ArrayList<Cat> dummyCats = new ArrayList<>();
+        Cat c1 = new Cat("Fluffy", "Fur acts as armor", "Afraid of heights", "https://placekitten.com/96/139");
+        c1.setId(createId());
+        dummyCats.add(c1);
+        Cat c2 = new Cat("Tiny", "Fits into small spaces", "Takes too many naps", "https://placekitten.com/76/139");
+        c2.setId(createId());
+        dummyCats.add(c2);
+        Cat c3 = new Cat("Werewolf", "Meows loudly", "Hates loud noises", "https://placekitten.com/75/139");
+        c3.setId(createId());
+        dummyCats.add(c3);
+
+        return dummyCats;
     }
 }

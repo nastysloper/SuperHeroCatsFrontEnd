@@ -5,6 +5,9 @@ angular.module('myApp').controller('CatController', ['$scope', 'CatService', fun
     self.cat = {id: null, name: '', power: '', image: '', weakness: ''};
     self.cats = [];
     self.submit = submit;
+    self.edit = edit;
+    self.remove = remove;
+    self.reset = reset;
 
     fetchCats();
 
@@ -30,5 +33,24 @@ angular.module('myApp').controller('CatController', ['$scope', 'CatService', fun
     function submit() {
         console.log('Saving New Super Hero Cat', self.cat);
         createCat(self.cat);
+    }
+
+    function edit(id) {
+        console.log("ID to be edited is " + id);
+    }
+
+    function remove(id) {
+        console.log("ID to be removed is " + id);
+    }
+
+    function reset() {
+        self.user = {
+            id: null,
+            name: '',
+            power: '',
+            image: '',
+            weakness: ''
+        };
+        $scope.catForm.$setPristine();
     }
 }]);

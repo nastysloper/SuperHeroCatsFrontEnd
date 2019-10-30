@@ -13,29 +13,29 @@ import java.util.List;
 @RestController
 public class CatController {
 
-   @Autowired
-   CatServiceImpl CatService;
+    @Autowired
+    CatServiceImpl CatService;
 
-   @RequestMapping(value = "/cat/", method = RequestMethod.GET)
+    @RequestMapping(value = "/cat/", method = RequestMethod.GET)
     public ResponseEntity<List<Cat>> listAllCats() {
-       List<Cat> cats = CatService.findAllCats();
-       if (cats.isEmpty()) {
-           return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-       }
-       return new ResponseEntity<>(cats, HttpStatus.OK);
-   }
+        List<Cat> cats = CatService.findAllCats();
+        if (cats.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(cats, HttpStatus.OK);
+    }
 
-   // Synchronous request
-   @RequestMapping(value="/createCat", method = RequestMethod.POST)
+    // Synchronous request
+    @RequestMapping(value = "/createCat", method = RequestMethod.POST)
     public ModelAndView createNewCat(@ModelAttribute("Cat") Cat newCat) {
-       Cat cat = CatService.createNewCat(newCat.getName(), newCat.getPower(), newCat.getWeakness(), newCat.getImage());
-       return new ModelAndView("CatManagement");
-   }
+        CatService.createNewCat(newCat.getName(), newCat.getPower(), newCat.getWeakness(), newCat.getImage());
+        return new ModelAndView("CatManagement");
+    }
 
-   // Async request
-   @RequestMapping(value="/cat/", method = RequestMethod.POST)
+    // Async request
+    @RequestMapping(value = "/cat/", method = RequestMethod.POST)
     public ResponseEntity<Cat> createAsyncCat(@RequestBody Cat newCat) {
-       Cat cat = CatService.createNewCat(newCat.getName(), newCat.getPower(), newCat.getWeakness(), newCat.getImage());
-       return new ResponseEntity<>(cat, HttpStatus.OK);
-   }
+        Cat cat = CatService.createNewCat(newCat.getName(), newCat.getPower(), newCat.getWeakness(), newCat.getImage());
+        return new ResponseEntity<>(cat, HttpStatus.OK);
+    }
 }

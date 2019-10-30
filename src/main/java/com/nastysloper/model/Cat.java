@@ -2,7 +2,7 @@ package com.nastysloper.model;
 
 public class Cat {
 
-    private long id;
+    private Long id;
     private String name;
     private String power;
     private String weakness;
@@ -11,18 +11,17 @@ public class Cat {
     public Cat() {};
 
     public Cat(String name, String power, String weakness, String image) {
-        this.id = 1;
         this.name = name;
         this.power = power;
         this.weakness = weakness;
         this.image = image;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

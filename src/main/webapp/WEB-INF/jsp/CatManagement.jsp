@@ -49,7 +49,7 @@
         <div>Weakness:<input type="text" id="weakness" name="weakness"></div><br>
         <button type="submit">Create</button>
     </form>
-    <form ng-submit="ctrl.submit()">
+    <form name="catForm" ng-submit="ctrl.submit()">
         <h3>Async Submit</h3>
         <div>Photo URL:<input type="text" ng-model="ctrl.cat.image"></div><br>
         <div>Name:<input type="text" ng-model="ctrl.cat.name" required></div><br>
