@@ -14,4 +14,6 @@ public interface CatService {
     List<Cat> findAllCats();
 
     Cat createNewCat(String name, String power, String weakness, String image);
+
+    Cat delete(Long id);
 }

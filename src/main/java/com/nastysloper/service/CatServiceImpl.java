@@ -49,6 +49,11 @@ public class CatServiceImpl implements CatService {
         return cat;
     }
 
+    @Override
+    public Cat delete(Long id) {
+
+    }
+
     private static Long createId() {
         return counter++;
     }

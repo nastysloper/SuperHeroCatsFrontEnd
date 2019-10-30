@@ -2,11 +2,6 @@
 <head>
     <title>AngularJS + Spring MVC</title>
     <meta charset="UTF-8">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-    <script src='${pageContext.request.contextPath}/static/js/app.js'></script>
-    <script src='${pageContext.request.contextPath}/static/js/service/cat_service.js'></script>
-    <!-- The controller has a dependency on the Cat Service -->
-    <script src='${pageContext.request.contextPath}/static/js/controller/cat_controller.js'></script>
     <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/style.css">
     <link rel="icon" href="favicon.ico">
@@ -34,7 +29,7 @@
             <td ng-bind="c.power"></td>
             <td ng-bind="c.weakness"></td>
             <td>
-                <button>Edit</button><button>Delete</button>
+                <button name="delete" ng-click="ctrl.remove(c.id)">Delete</button>
             </td>
         </tr>
         </tbody>
@@ -51,12 +46,16 @@
     </form>
     <form name="catForm" ng-submit="ctrl.submit()">
         <h3>Async Submit</h3>
-        <div>Photo URL:<input type="text" ng-model="ctrl.cat.image"></div><br>
-        <div>Name:<input type="text" ng-model="ctrl.cat.name" required></div><br>
-        <div>Power:<input type="text" ng-model="ctrl.cat.power"></div><br>
-        <div>Weakness:<input type="text" ng-model="ctrl.cat.weakness"></div><br>
+        <div><label for="image">Photo URL:</label><input type="text" ng-model="ctrl.cat.image" name="image"></div><br>
+        <div><label for="name">Name:</label><input type="text" ng-model="ctrl.cat.name" name="name" required></div><br>
+        <div><label for="power">Power:</label><input type="text" ng-model="ctrl.cat.power" name="power"></div><br>
+        <div><label for="weakness">Weakness:</label><input type="text" ng-model="ctrl.cat.weakness" name="weakness"></div><br>
         <button type="submit">Create</button>
     </form>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src='${pageContext.request.contextPath}/static/js/app.js'></script>
+<script src='${pageContext.request.contextPath}/static/js/service/cat_service.js'></script>
+<script src='${pageContext.request.contextPath}/static/js/controller/cat_controller.js'></script>
 </body>
 </html>
