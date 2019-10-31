@@ -42,20 +42,24 @@ public class CatServiceImpl implements CatService {
     }
 
     @Override
-    public Cat createNewCat(String name, String power, String weakness, String image) {
-        Cat cat = new Cat(name, power, weakness, image);
-        cat.setId(createId());
-        cats.add(cat);
-        return cat;
+    public Cat createNewCat(Cat cat) {
+        Cat newCat = new Cat(cat.getName(), cat.getPower(), cat.getWeakness(), cat.getImage());
+        newCat.setId(createId());
+        cats.add(newCat);
+        return newCat;
     }
 
     @Override
-    public void delete(Long id) {
+    public Optional<Cat> deleteCat(Long id) {
+        Cat catToRemove;
         for (Cat c : cats) {
             if (c.getId() == id) {
+                catToRemove = c;
                 cats.remove(c);
+                return Optional.of(catToRemove);
             }
         }
+        return Optional.empty();
     }
 
     private static Long createId() {
@@ -77,9 +81,10 @@ public class CatServiceImpl implements CatService {
         return dummyCats;
     }
 
-    public void updateCat(Cat cat) {
+    public Cat updateCat(Cat cat) {
         int i = cats.indexOf(cat);
         cats.set(i, cat);
+        return cat;
     }
 
     public boolean catExists(Cat cat) {

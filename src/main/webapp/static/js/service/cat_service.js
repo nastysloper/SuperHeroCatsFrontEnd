@@ -20,7 +20,7 @@ angular.module('myApp').factory('CatService', ['$http', function ($http) {
     }
 
     function createCat(cat) {
-        return $http.post(REST_SERVICE_URI + 'add', cat)
+        return $http.post(REST_SERVICE_URI + 'cat', cat)
             .then(function (response) {
                 return response.data;
             }).catch(function (err) {

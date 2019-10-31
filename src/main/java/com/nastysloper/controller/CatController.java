@@ -1,6 +1,6 @@
 package com.nastysloper.controller;
 
-import com.nastysloper.service.CatServiceImpl;
+import com.nastysloper.manager.CatManagerImpl;
 import com.nastysloper.model.Cat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,11 +15,11 @@ import java.util.NoSuchElementException;
 public class CatController {
 
     @Autowired
-    CatServiceImpl catService;
+    CatManagerImpl catManager;
 
     @RequestMapping(value = "/cats", method = RequestMethod.GET)
     public ResponseEntity<List<Cat>> listAllCats() {
-        List<Cat> cats = catService.findAllCats();
+        List<Cat> cats = catManager.findAllCats();
         if (cats.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -28,8 +28,8 @@ public class CatController {
 
     // Synchronous request
     @RequestMapping(value = "/createCat", method = RequestMethod.POST)
-    public ModelAndView createNewCat(@ModelAttribute("Cat") Cat newCat) {
-        catService.createNewCat(newCat.getName(), newCat.getPower(), newCat.getWeakness(), newCat.getImage());
+    public ModelAndView createSyncCat(@ModelAttribute("Cat") Cat newCat) {
+        catManager.createNewCat(newCat);
         return new ModelAndView("CatManagement");
     }
 
@@ -37,7 +37,7 @@ public class CatController {
     public ResponseEntity<Cat> getCat(@PathVariable("id") Long id) {
         System.out.println("Fetching cat with id " + id);
         try {
-            Cat cat = catService.findById(id).get();
+            Cat cat = catManager.findById(id).get();
             return new ResponseEntity<Cat>(cat, HttpStatus.OK);
         } catch (NoSuchElementException e) {
             System.out.println("Cat with id " + id + " not found.");
@@ -46,36 +46,36 @@ public class CatController {
     }
 
     // Async request
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/cat", method = RequestMethod.POST)
     public ResponseEntity<Cat> createAsyncCat(@RequestBody Cat newCat) {
-        if (catService.catExists(newCat)) {
+        if (catManager.catExists(newCat)) {
             System.out.println("A super hero cat named " + newCat.getName() + " already exists.");
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
         System.out.println("Creating super hero cat " + newCat.getName() + ".");
-        Cat cat = catService.createNewCat(newCat.getName(), newCat.getPower(), newCat.getWeakness(), newCat.getImage());
+        Cat cat = catManager.createNewCat(newCat);
         return new ResponseEntity<>(cat, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/cat/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Cat> deleteCat(@PathVariable("id") Long id) {
         System.out.println("Fetching and deleting Cat with id " + id);
-        if (catService.findById(id).isEmpty()) {
+        if (catManager.findById(id).isEmpty()) {
             System.out.println("Unable to delete cat with id " + id + ".");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        catService.delete(id);
+        catManager.deleteCat(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @RequestMapping(value = "/cat/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Cat> updateCat(@PathVariable("id") Long id, @RequestBody Cat cat) {
-        Cat thisCat = catService.findById(id).get();
+        Cat thisCat = catManager.findById(id).get();
         System.out.println("Updating Cat with id " + id);
         thisCat.setName(cat.getName());
         thisCat.setPower(cat.getPower());
         thisCat.setWeakness(cat.getWeakness());
-        catService.updateCat(thisCat);
+        catManager.updateCat(thisCat);
         return new ResponseEntity<Cat>(thisCat, HttpStatus.OK);
     }
 }

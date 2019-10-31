@@ -1,23 +1,21 @@
-package com.nastysloper.service;
+package com.nastysloper.manager;
 
 import com.nastysloper.model.Cat;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface CatService {
-
-    Optional<Cat> findById(Long id);
-
-    Optional<Cat> findByName(String name);
+public interface CatManager {
 
     List<Cat> findAllCats();
 
     Cat createNewCat(Cat cat);
 
+    Optional<Cat> findById(Long id);
+
+    boolean catExists(Cat cat);
+
     Optional<Cat> deleteCat(Long id);
 
     Cat updateCat(Cat cat);
-
-    boolean catExists(Cat cat);
 }

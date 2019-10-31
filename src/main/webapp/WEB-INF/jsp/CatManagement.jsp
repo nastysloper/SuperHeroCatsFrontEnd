@@ -40,7 +40,7 @@
     <form action="/totempole_war_exploded/createCat" name="Cat" method="POST">
         <h3>Synchronous Submit</h3>
         <div><label for="image">Photo URL:<input type="text" id="image" name="image"></label></div><br>
-        <div><label for="name">Name:<input type="text" id="name" name="name" required></label></div><br>
+        <div><label for="name">Name <span class="required">(required)</span>:<input type="text" id="name" name="name" required></label></div><br>
         <div><label for="power">Power:<input type="text" id="power" name="power"></label></div><br>
         <div><label for="weakness">Weakness:<input type="text" id="weakness" name="weakness"></label></div><br>
         <input type="submit" value="Submit" />
@@ -48,7 +48,7 @@
     <form name="catForm" ng-submit="ctrl.submit()">
         <h3>Async Submit</h3>
         <div><label for="image">Photo URL:</label><input type="text" ng-model="ctrl.cat.image" name="image"></div><br>
-        <div><label for="name">Name:</label><input type="text" ng-model="ctrl.cat.name" name="name" required></div><br>
+        <div><label for="name">Name <span class="required">(required)</span>:</label><input type="text" ng-model="ctrl.cat.name" name="name" required></div><br>
         <div><label for="power">Power:</label><input type="text" ng-model="ctrl.cat.power" name="power"></div><br>
         <div><label for="weakness">Weakness:</label><input type="text" ng-model="ctrl.cat.weakness" name="weakness"></div><br>
         <input type="submit" value="{{ctrl.cat.id ? 'Update' : 'Create'}}" />
