@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/style.css">
-    <link rel="icon" href="favicon.ico">
+    <link rel="icon" href="${pageContext.request.contextPath}/static/images/favicon.ico">
 </head>
 <body ng-app="myApp" ng-controller="CatController as ctrl">
 <h2 class="title">Super Hero Cat App</h2>

@@ -1,20 +1,20 @@
-package com.nastysloper.service;
+package com.nastysloper.dao;
 
 import com.nastysloper.model.Cat;
 
 import java.util.ArrayList;
 
-public interface CatService {
+public interface CatDao {
+
+    void saveCat(Cat cat);
+
+    ArrayList<Cat> findAllCats();
+
+    void deleteCatById(Long id);
 
     Cat findById(Long id);
 
     Cat findByName(String name);
-
-    ArrayList<Cat> findAllCats();
-
-    void saveCat(Cat cat);
-
-    void deleteCatById(Long id);
 
     void updateCat(Cat cat);
 }

@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
+    <link rel="icon" href="${pageContext.request.contextPath}/static/images/favicon.ico">
 </head>
 <body>
     <div>

@@ -1,21 +1,26 @@
 package com.nastysloper.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="CAT")
 public class Cat {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "CAT_NAME", nullable = false)
     private String name;
+
+    @Column(name = "POWER")
     private String power;
+
+    @Column(name = "WEAKNESS")
     private String weakness;
+
+    @Column(name = "IMAGE")
     private String image;
-
-    public Cat() {};
-
-    public Cat(String name, String power, String weakness, String image) {
-        this.name = name;
-        this.power = power;
-        this.weakness = weakness;
-        this.image = image;
-    }
 
     public Long getId() {
         return id;
@@ -54,7 +59,10 @@ public class Cat {
     public String getImage() { return this.image; }
 
     public int hashCode() {
-        return Math.toIntExact(this.getId());
+        final int prime = 31;
+        int result = 1 + Math.toIntExact(id);
+        result = prime * result;
+        return result;
     }
 
     public boolean equals(Object other) {

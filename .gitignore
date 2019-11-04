@@ -3,3 +3,4 @@ target/
 images/
 node_modules/
 package-lock.json
+application.properties

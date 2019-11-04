@@ -2,20 +2,19 @@ package com.nastysloper.manager;
 
 import com.nastysloper.model.Cat;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.ArrayList;
 
 public interface CatManager {
 
-    List<Cat> findAllCats();
+    ArrayList<Cat> findAllCats();
 
-    Cat createNewCat(Cat cat);
+    void createNewCat(Cat cat);
 
-    Optional<Cat> findById(Long id);
+    Cat findById(Long id);
 
-    boolean catExists(Cat cat);
+    Cat findByName(String name);
 
-    Optional<Cat> deleteCat(Long id);
+    void deleteCat(Long id);
 
-    Cat updateCat(Cat cat);
+    void updateCat(Cat cat);
 }

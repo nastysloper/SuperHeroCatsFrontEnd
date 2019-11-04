@@ -1,45 +1,42 @@
 package com.nastysloper.manager;
 
 import com.nastysloper.model.Cat;
-import com.nastysloper.service.CatServiceImpl;
+import com.nastysloper.service.CatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 @Service("CatManager")
 public class CatManagerImpl implements CatManager {
 
     @Autowired
-    CatServiceImpl catService;
+    CatService catService;
 
     public ArrayList<Cat> findAllCats() {
         return catService.findAllCats();
     }
 
     @Override
-    public Cat createNewCat(Cat cat) {
-        return catService.createNewCat(cat);
+    public void createNewCat(Cat cat) {
+        catService.saveCat(cat);
     }
 
     @Override
-    public Optional<Cat> findById(Long id) {
+    public Cat findById(Long id) {
         return catService.findById(id);
     }
 
     @Override
-    public boolean catExists(Cat cat) {
-        return catService.catExists(cat);
+    public Cat findByName(String name) { return catService.findByName(name); }
+
+    @Override
+    public void deleteCat(Long id) {
+        catService.deleteCatById(id);
     }
 
     @Override
-    public Optional<Cat> deleteCat(Long id) {
-        return catService.deleteCat(id);
-    }
-
-    @Override
-    public Cat updateCat(Cat cat) {
-        return catService.updateCat(cat);
+    public void updateCat(Cat cat) {
+        catService.updateCat(cat);
     }
 }
