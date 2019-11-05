@@ -8,7 +8,6 @@ angular.module('myApp').controller('CatController', ['$scope', 'CatService', fun
     self.edit = edit;
     self.remove = remove;
     self.reset = reset;
-    self.hasCat = hasCat;
 
     fetchCats();
 
@@ -22,12 +21,18 @@ angular.module('myApp').controller('CatController', ['$scope', 'CatService', fun
     }
 
     function createCat(cat) {
+        if (hasCat()) {
+            console.log("Cannot create duplicate cat in JS controller.");
+            setTimeout(function(){
+                // do nothing
+            }, 1000);
+            throw err;
+        }
         CatService.createCat(cat)
-            .then(fetchCats)
+            .then(fetchCats())
             .catch(function (errResponse) {
-                console.error('Error while creating Super Cat', errResponse);
+                console.error('Error while creating Super Cat,', errResponse);
             });
-        console.log("Super cat created!")
     }
 
     function submit() {
@@ -42,7 +47,7 @@ angular.module('myApp').controller('CatController', ['$scope', 'CatService', fun
 
     function updateCat(cat, id) {
         CatService.updateCat(cat, id)
-            .then(fetchCats)
+            .then(fetchCats())
             .catch(function (errResponse) {
                 console.error('Error while updating cat');
             });
@@ -50,7 +55,7 @@ angular.module('myApp').controller('CatController', ['$scope', 'CatService', fun
 
     function remove(id) {
         CatService.deleteCat(id)
-            .then(fetchCats)
+            .then(fetchCats())
             .catch(function (errResponse) {
                 console.error('Error while deleting cat');
             });
@@ -67,13 +72,9 @@ angular.module('myApp').controller('CatController', ['$scope', 'CatService', fun
     }
 
     function hasCat() {
-        self.cats.forEach(function (cat) {
-            if (cat.name === self.cat.name) {
-                console.log("yes, this cat is already in the list...");
-                return true;
-            }
+        self.cats.every(function (cat) {
+            return cat.name !== self.cat.name;
         });
-        return false;
     }
 
     function reset() {

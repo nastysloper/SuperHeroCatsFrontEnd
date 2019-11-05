@@ -29,6 +29,11 @@ public class CatController {
     // Synchronous request
     @RequestMapping(value = "/createCat", method = RequestMethod.POST)
     public ModelAndView createSyncCat(@ModelAttribute("Cat") Cat newCat) {
+        Cat cat = catManager.findByName(newCat.getName());
+        if (cat != null) {
+            System.out.println("A cat with the name " + newCat.getName() + " already exists.");
+            return new ModelAndView("CatManagement");
+        }
         catManager.createNewCat(newCat);
         return new ModelAndView("CatManagement");
     }
@@ -48,10 +53,12 @@ public class CatController {
     // Async request
     @RequestMapping(value = "/cat", method = RequestMethod.POST)
     public ResponseEntity<Cat> createAsyncCat(@RequestBody Cat newCat) {
-        if (newCat != null) {
+        Cat cat = catManager.findByName(newCat.getName());
+        if (cat != null) {
             System.out.println("A super hero cat named " + newCat.getName() + " already exists.");
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
+
         System.out.println("Creating super hero cat " + newCat.getName() + ".");
         catManager.createNewCat(newCat);
         return new ResponseEntity<>(newCat, HttpStatus.CREATED);
