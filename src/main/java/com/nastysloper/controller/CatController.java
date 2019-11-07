@@ -32,10 +32,10 @@ public class CatController {
         Cat cat = catManager.findByName(newCat.getName());
         if (cat != null) {
             System.out.println("A cat with the name " + newCat.getName() + " already exists.");
-            return new ModelAndView("CatManagement");
+            return new ModelAndView("redirect:/home");
         }
         catManager.createNewCat(newCat);
-        return new ModelAndView("CatManagement");
+        return new ModelAndView("redirect:/home");
     }
 
     @RequestMapping(value = "/cat/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

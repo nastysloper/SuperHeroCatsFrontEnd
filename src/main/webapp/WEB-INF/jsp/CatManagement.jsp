@@ -28,15 +28,17 @@
             <td ng-bind="c.name"></td>
             <td ng-bind="c.power"></td>
             <td ng-bind="c.weakness"></td>
-            <td>
-                <button name="edit" ng-click="ctrl.edit(c.id)">Edit</button>
+            <td><!-- ctrl.edit(c.id) -->
+                <button name="edit" ng-click="ctrl.setEdit(c.id)">Edit</button>
                 <button name="delete" ng-click="ctrl.remove(c.id)">Delete</button>
             </td>
         </tr>
         </tbody>
     </table>
     <h2>Add New Super Hero Cat</h2>
-    <!-- synchronous submit. remove after phase 1 -->
+    <div class="flash-message-sync hidden">
+        <h3 class="success-message-sync hidden">Success! Your Super Cat has been created.</h3>
+    </div>
     <form action="/totempole_war_exploded/createCat" name="Cat" method="POST">
         <h3>Synchronous Submit</h3>
         <div><label for="image">Photo URL:<input type="text" id="image" name="image"></label></div><br>
@@ -45,11 +47,14 @@
         <div><label for="weakness">Weakness:<input type="text" id="weakness" name="weakness"></label></div><br>
         <input type="submit" value="Submit" />
     </form>
+    <div class="flash-message hidden">
+        <h3 class="success-message hidden">Success! Your Super Cat has been created.</h3>
+    </div>
     <form name="catForm" ng-submit="ctrl.submit()">
         <h3>Async Submit</h3>
         <div><label for="image">Photo URL:</label><input type="text" ng-model="ctrl.cat.image" name="image"></div><br>
         <div><label for="name">Name <span class="required">(required)</span>:</label><input type="text" ng-model="ctrl.cat.name" name="name" required></div><br>
-        <div><label for="power">Power:</label><input type="text" ng-model="ctrl.cat.power" name="power"></div><br>
+        <div><label for="power">Power:</label><input type="text" id="formInput" ng-model="ctrl.cat.power" name="power"></div><br>
         <div><label for="weakness">Weakness:</label><input type="text" ng-model="ctrl.cat.weakness" name="weakness"></div><br>
         <input type="submit" value="{{ctrl.cat.id ? 'Update' : 'Create'}}" />
         <input type="submit" ng-click="ctrl.reset()" value="Clear" />

@@ -11,39 +11,19 @@ angular.module('myApp').factory('CatService', ['$http', function ($http) {
     };
 
     function fetchAllCats() {
-        return $http.get(REST_SERVICE_URI + 'cats')
-            .then(function (response) {
-                return response.data;
-            }).catch(function (errResponse) {
-                console.error('Error while fetching cats');
-            });
+        return $http.get(REST_SERVICE_URI + 'cats');
     }
 
     function createCat(cat) {
-        return $http.post(REST_SERVICE_URI + 'cat', cat)
-            .then(function (response) {
-                return response.data;
-            }).catch(function (err) {
-                console.error('Error while creating Cat:', err);
-            });
+        return $http.post(REST_SERVICE_URI + 'cat', cat);
     }
 
     function updateCat(cat, id) {
-        return $http.put(REST_SERVICE_URI + 'cat/' + id, cat)
-            .then(function (response) {
-                return (response.data);
-            }).catch(function (err) {
-                console.error('Error while updating Cat', err);
-            });
+        return $http.put(REST_SERVICE_URI + 'cat/' + id, cat);
     }
 
     function deleteCat(id) {
-        return $http.delete(REST_SERVICE_URI + 'cat/' + id)
-            .then(function (response) {
-                return response.data;
-            }).catch(function (err) {
-                console.error('Error while deleting Cat');
-            });
+        return $http.delete(REST_SERVICE_URI + 'cat/' + id);
     }
 
     return factory
