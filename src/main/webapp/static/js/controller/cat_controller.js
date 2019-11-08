@@ -55,6 +55,7 @@ angular.module('myApp').controller('CatController', ['$scope', 'CatService', fun
         CatService.updateCat(cat, id)
             .then(fetchCats)
             .then(reset)
+            .then(flashSuccess)
             .catch(function (errResponse) {
                 console.error('Error while updating cat');
             });
@@ -104,6 +105,7 @@ angular.module('myApp').controller('CatController', ['$scope', 'CatService', fun
     }
 
     function flashSuccess() {
-        document.getElementById('formInput').focus();
+        document.getElementById('flash-message-async').classList.remove('hidden');
+        document.getElementById('success-message-async').classList.remove('hidden');
     }
 }]);

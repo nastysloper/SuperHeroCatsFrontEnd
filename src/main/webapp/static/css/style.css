@@ -107,11 +107,11 @@ input {
     border-radius: 10px;
 }
 
-.success-message-async {
+#success-message-async {
     padding-left: 10px;
 }
 
-.flash-message-async {
+#flash-message-async {
     display: flex;
     width: 100%;
     height: 100px;
