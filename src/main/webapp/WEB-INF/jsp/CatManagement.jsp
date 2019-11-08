@@ -47,8 +47,8 @@
         <div><label for="weakness">Weakness:<input type="text" id="weakness" name="weakness"></label></div><br>
         <input type="submit" value="Submit" />
     </form>
-    <div class="flash-message hidden">
-        <h3 class="success-message hidden">Success! Your Super Cat has been created.</h3>
+    <div id="flash-message hidden">
+        <h3 id="success-message hidden">Success! Your Super Cat has been created.</h3>
     </div>
     <form name="catForm" ng-submit="ctrl.submit()">
         <h3>Async Submit</h3>

@@ -31,6 +31,7 @@ angular.module('myApp').controller('CatController', ['$scope', 'CatService', fun
                 CatService.createCat(cat)
                     .then(fetchCats)
                     .then(reset)
+                    .then(flashSuccess)
                     .catch(function (errResponse) {
                         console.error('Error while creating Super Cat,', errResponse);
                     });
@@ -100,5 +101,9 @@ angular.module('myApp').controller('CatController', ['$scope', 'CatService', fun
     function setEdit(id) {
         document.getElementById('formInput').focus();
         edit(id);
+    }
+
+    function flashSuccess() {
+        document.getElementById('formInput').focus();
     }
 }]);
