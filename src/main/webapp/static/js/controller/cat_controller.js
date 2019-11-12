@@ -4,6 +4,7 @@ angular.module('myApp').controller('CatController', ['$scope', 'CatService', fun
     var self = this;
     self.cat = {id: null, name: '', power: '', image: '', weakness: ''};
     self.cats = [];
+    self.flash = false;
     self.submit = submit;
     self.edit = edit;
     self.remove = remove;
@@ -15,7 +16,6 @@ angular.module('myApp').controller('CatController', ['$scope', 'CatService', fun
     function fetchCats() {
         CatService.fetchAllCats()
             .then(function (response) {
-                console.log(response.data);
                 self.cats = response.data;
             }).catch(function (errResponse) {
             console.log("Error while fetching cats", errResponse);
@@ -31,7 +31,7 @@ angular.module('myApp').controller('CatController', ['$scope', 'CatService', fun
                 CatService.createCat(cat)
                     .then(fetchCats)
                     .then(reset)
-                    .then(flashSuccess)
+                    .then(showFlash)
                     .catch(function (errResponse) {
                         console.error('Error while creating Super Cat,', errResponse);
                     });
@@ -55,7 +55,7 @@ angular.module('myApp').controller('CatController', ['$scope', 'CatService', fun
         CatService.updateCat(cat, id)
             .then(fetchCats)
             .then(reset)
-            .then(flashSuccess)
+            .then(hideFlash)
             .catch(function (errResponse) {
                 console.error('Error while updating cat');
             });
@@ -64,6 +64,7 @@ angular.module('myApp').controller('CatController', ['$scope', 'CatService', fun
     function remove(id) {
         CatService.deleteCat(id)
             .then(fetchCats)
+            .then(hideFlash)
             .catch(function (errResponse) {
                 console.error('Error while deleting cat');
             });
@@ -101,11 +102,23 @@ angular.module('myApp').controller('CatController', ['$scope', 'CatService', fun
 
     function setEdit(id) {
         document.getElementById('formInput').focus();
+        hideFlash();
         edit(id);
     }
 
-    function flashSuccess() {
-        document.getElementById('flash-message-async').classList.remove('hidden');
-        document.getElementById('success-message-async').classList.remove('hidden');
+    function showFlash() {
+        if (!self.flash) {
+            document.getElementById('flash-message-async').classList.remove('hidden');
+            document.getElementById('success-message-async').classList.remove('hidden');
+            self.flash = true;
+        }
+    }
+
+    function hideFlash() {
+        if(self.flash) {
+            document.getElementById('flash-message-async').classList.add('hidden');
+            document.getElementById('success-message-async').classList.add('hidden');
+            self.flash = false;
+        }
     }
 }]);
