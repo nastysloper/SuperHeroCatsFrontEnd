@@ -22,25 +22,6 @@ angular.module('myApp').controller('CatController', ['$scope', 'CatService', fun
         });
     }
 
-    function createCat(cat) {
-        try {
-            if (catExists(cat)) {
-                console.log("Cannot create duplicate cat in JS controller.");
-                throw "A cat with this name already exists!";
-            } else {
-                CatService.createCat(cat)
-                    .then(fetchCats)
-                    .then(reset)
-                    .then(showFlash)
-                    .catch(function (errResponse) {
-                        console.error('Error while creating Super Cat,', errResponse);
-                    });
-            }
-        } catch (e) {
-            console.error(e);
-        }
-    }
-
     function submit() {
         if (self.cat.id === null) {
             console.log('Saving New Super Hero Cat', self.cat);
@@ -51,11 +32,30 @@ angular.module('myApp').controller('CatController', ['$scope', 'CatService', fun
         }
     }
 
+    function createCat(cat) {
+        try {
+            if (catExists(cat)) {
+                console.log("Cannot create duplicate cat in JS controller.");
+                throw "A cat with this name already exists!";
+            } else {
+                CatService.createCat(cat)
+                    .then(fetchCats)
+                    .then(reset)
+                    .then(showFlash('create'))
+                    .catch(function (errResponse) {
+                        console.error('Error while creating Super Cat,', errResponse);
+                    });
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
     function updateCat(cat, id) {
         CatService.updateCat(cat, id)
             .then(fetchCats)
             .then(reset)
-            .then(hideFlash)
+            .then(showFlash('update'))
             .catch(function (errResponse) {
                 console.error('Error while updating cat');
             });
@@ -98,6 +98,7 @@ angular.module('myApp').controller('CatController', ['$scope', 'CatService', fun
             weakness: ''
         }
         $scope.catForm.$setPristine();
+        hideFlash();
     }
 
     function setEdit(id) {
@@ -106,11 +107,19 @@ angular.module('myApp').controller('CatController', ['$scope', 'CatService', fun
         edit(id);
     }
 
-    function showFlash() {
-        if (!self.flash) {
-            document.getElementById('flash-message-async').classList.remove('hidden');
-            document.getElementById('success-message-async').classList.remove('hidden');
-            self.flash = true;
+    function showFlash(isNew) {
+        return function () {
+            if (!self.flash) {
+                document.getElementById('success-message-async')
+                    .textContent = 'You have successfully created a new Super Cat';
+                document.getElementById('flash-message-async').classList.remove('hidden');
+                document.getElementById('success-message-async').classList.remove('hidden');
+                self.flash = true;
+            }
+            if (isNew === 'update') {
+                document.getElementById('success-message-async')
+                    .textContent = 'You have successfully updated Super Cat';
+            }
         }
     }
 

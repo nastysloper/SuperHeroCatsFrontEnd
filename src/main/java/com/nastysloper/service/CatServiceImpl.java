@@ -15,7 +15,6 @@ public class CatServiceImpl implements CatService {
     @Autowired
     private CatDao catDao;
 
-
     @Override
     public Cat findById(Long id) {
         return catDao.findById(id);

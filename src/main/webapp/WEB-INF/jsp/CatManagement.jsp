@@ -48,7 +48,7 @@
         <input type="submit" value="Submit" />
     </form>
     <div id="flash-message-async" class="hidden">
-        <h3 id="success-message-async" class="hidden">Success! Your Super Cat has been created.</h3>
+        <h3 id="success-message-async" class="hidden">Success!</h3>
     </div>
     <form name="catForm" ng-submit="ctrl.submit()">
         <h3>Async Submit</h3>
