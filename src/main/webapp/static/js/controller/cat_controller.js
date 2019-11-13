@@ -1,7 +1,10 @@
 'use strict';
 
-angular.module('myApp').controller('CatController', ['$scope', 'CatService', function ($scope, CatService) {
+angular.module('myApp')
+    .controller('CatController', ['$scope', '$log', 'CatService', function ($scope, $log, CatService) {
+
     var self = this;
+    $scope.$log = $log;
     self.cat = {id: null, name: '', power: '', image: '', weakness: ''};
     self.cats = [];
     self.flash = false;
@@ -18,24 +21,24 @@ angular.module('myApp').controller('CatController', ['$scope', 'CatService', fun
             .then(function (response) {
                 self.cats = response.data;
             }).catch(function (errResponse) {
-            console.log("Error while fetching cats", errResponse);
+            $log.error("Error while fetching cats", errResponse);
         });
     }
 
     function submit() {
         if (self.cat.id === null) {
-            console.log('Saving New Super Hero Cat', self.cat);
+            $log.log('Saving New Super Hero Cat', self.cat);
             createCat(self.cat);
         } else {
             updateCat(self.cat, self.cat.id);
-            console.log('Cat updated with id ', self.cat.id);
+            $log.log('Cat updated with id ', self.cat.id);
         }
     }
 
     function createCat(cat) {
         try {
             if (catExists(cat)) {
-                console.log("Cannot create duplicate cat in JS controller.");
+                $log.warn("Cannot create duplicate cat in JS controller.");
                 throw "A cat with this name already exists!";
             } else {
                 CatService.createCat(cat)
@@ -43,11 +46,11 @@ angular.module('myApp').controller('CatController', ['$scope', 'CatService', fun
                     .then(reset)
                     .then(showFlash('create'))
                     .catch(function (errResponse) {
-                        console.error('Error while creating Super Cat,', errResponse);
+                        $log.error('Error while creating Super Cat,', errResponse);
                     });
             }
         } catch (e) {
-            console.error(e);
+            $log.error(e);
         }
     }
 
@@ -57,7 +60,7 @@ angular.module('myApp').controller('CatController', ['$scope', 'CatService', fun
             .then(reset)
             .then(showFlash('update'))
             .catch(function (errResponse) {
-                console.error('Error while updating cat');
+                $log.error('Error while updating cat');
             });
     }
 
@@ -66,12 +69,12 @@ angular.module('myApp').controller('CatController', ['$scope', 'CatService', fun
             .then(fetchCats)
             .then(hideFlash)
             .catch(function (errResponse) {
-                console.error('Error while deleting cat');
+                $log.error('Error while deleting cat');
             });
     }
 
     function edit(id) {
-        console.log('id to be edited', id);
+        $log.log('id to be edited', id);
         for (var i = 0; i < self.cats.length; i++) {
             if (self.cats[i].id === id) {
                 self.cat = angular.copy(self.cats[i]);
