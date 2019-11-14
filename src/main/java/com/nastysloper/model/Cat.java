@@ -1,6 +1,7 @@
 package com.nastysloper.model;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 @Entity
 @Table(name="CAT")
@@ -21,6 +22,9 @@ public class Cat {
 
     @Column(name = "IMAGE")
     private String image;
+
+    @Column(name = "BIRTHDAY")
+    private Date birthday;
 
     public Long getId() {
         return id;
@@ -57,6 +61,14 @@ public class Cat {
     public void setImage(String image) { this.image = image; }
 
     public String getImage() { return this.image; }
+
+    public void setBirthday(Date date) {
+        this.birthday = date;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
 
     public int hashCode() {
         final int prime = 31;

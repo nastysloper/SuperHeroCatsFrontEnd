@@ -8,6 +8,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.sql.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -29,6 +31,7 @@ public class CatController {
     // Synchronous request
     @RequestMapping(value = "/createCat", method = RequestMethod.POST)
     public ModelAndView createSyncCat(@ModelAttribute("Cat") Cat newCat) {
+
         Cat cat = catManager.findByName(newCat.getName());
         if (cat != null) {
             System.out.println("A cat with the name " + newCat.getName() + " already exists.");

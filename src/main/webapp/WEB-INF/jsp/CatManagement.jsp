@@ -18,6 +18,7 @@
             <th>Name</th>
             <th>Super Power</th>
             <th>Weakness</th>
+            <th>Birthday</th>
             <th width="20%"></th>
         </tr>
         </thead>
@@ -28,7 +29,8 @@
             <td ng-bind="c.name"></td>
             <td ng-bind="c.power"></td>
             <td ng-bind="c.weakness"></td>
-            <td><!-- ctrl.edit(c.id) -->
+            <td ng-bind="c.birthday"></td>
+            <td>
                 <button name="edit" ng-click="ctrl.setEdit(c.id)">Edit</button>
                 <button name="delete" ng-click="ctrl.remove(c.id)">Delete</button>
             </td>
@@ -45,6 +47,7 @@
         <div><label for="name">Name <span class="required">(required)</span>:<input type="text" id="name" name="name" required></label></div><br>
         <div><label for="power">Power:<input type="text" id="power" name="power"></label></div><br>
         <div><label for="weakness">Weakness:<input type="text" id="weakness" name="weakness"></label></div><br>
+        <div><label for="birthday">Birthday: (YYYY-MM-DD)<input type="text" id="birthday" name="birthday"></label></div><br>
         <input type="submit" value="Submit" />
     </form>
     <div id="flash-message-async" class="hidden">
@@ -56,6 +59,7 @@
         <div><label for="name">Name <span class="required">(required)</span>:</label><input type="text" ng-model="ctrl.cat.name" name="name" required></div><br>
         <div><label for="power">Power:</label><input type="text" id="formInput" ng-model="ctrl.cat.power" name="power"></div><br>
         <div><label for="weakness">Weakness:</label><input type="text" ng-model="ctrl.cat.weakness" name="weakness"></div><br>
+        <div><label for="birthday">Birthday: (YYYY-MM-DD)</label><input type="text" ng-model="ctrl.cat.birthday" name="birthday"></div><br>
         <input type="submit" value="{{ctrl.cat.id ? 'Update' : 'Create'}}" />
         <input type="submit" ng-click="ctrl.reset()" value="Clear" />
     </form>

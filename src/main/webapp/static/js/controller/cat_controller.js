@@ -5,7 +5,7 @@ angular.module('myApp')
 
     var self = this;
     $scope.$log = $log;
-    self.cat = {id: null, name: '', power: '', image: '', weakness: ''};
+    self.cat = {id: null, name: '', power: '', image: '', weakness: '', birthday: ''};
     self.cats = [];
     self.flash = false;
     self.submit = submit;
@@ -20,7 +20,9 @@ angular.module('myApp')
         CatService.fetchAllCats()
             .then(function (response) {
                 self.cats = response.data;
-            }).catch(function (errResponse) {
+            })
+            .then(translateBirthday)
+            .catch(function (errResponse) {
             $log.error("Error while fetching cats", errResponse);
         });
     }
@@ -41,6 +43,7 @@ angular.module('myApp')
                 $log.warn("Cannot create duplicate cat in JS controller.");
                 throw "A cat with this name already exists!";
             } else {
+                // formatBirthday();
                 CatService.createCat(cat)
                     .then(fetchCats)
                     .then(reset)
@@ -83,6 +86,19 @@ angular.module('myApp')
         }
     }
 
+    function formatBirthday() {
+        self.cat.birthday = new Date(self.cat.birthday).getTime().toString();
+    }
+
+    function translateBirthday() {
+        for (var i = 0; i < self.cats.length; i++) {
+            var birthdayTimestamp = self.cats[i].birthday
+            if (birthdayTimestamp !== null) {
+                var birthday = new Date(birthdayTimestamp).toDateString();
+                self.cats[i].birthday = birthday; }
+        }
+    }
+
     function catExists(cat) {
         for (var i = 0; i < self.cats.length; i++) {
             if (cat.name === self.cats[i].name) {
@@ -98,7 +114,8 @@ angular.module('myApp')
             name: '',
             power: '',
             image: '',
-            weakness: ''
+            weakness: '',
+            birthday: ''
         }
         $scope.catForm.$setPristine();
         hideFlash();
