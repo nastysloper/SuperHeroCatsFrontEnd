@@ -43,7 +43,7 @@ angular.module('myApp')
                 $log.warn("Cannot create duplicate cat in JS controller.");
                 throw "A cat with this name already exists!";
             } else {
-                // formatBirthday();
+                formatBirthday();
                 CatService.createCat(cat)
                     .then(fetchCats)
                     .then(reset)
@@ -62,8 +62,8 @@ angular.module('myApp')
             .then(fetchCats)
             .then(reset)
             .then(showFlash('update'))
-            .catch(function (errResponse) {
-                $log.error('Error while updating cat');
+            .catch(function (e) {
+                $log.error('Error while updating cat: ', e);
             });
     }
 
@@ -71,8 +71,8 @@ angular.module('myApp')
         CatService.deleteCat(id)
             .then(fetchCats)
             .then(hideFlash)
-            .catch(function (errResponse) {
-                $log.error('Error while deleting cat');
+            .catch(function (e) {
+                $log.error('Error while deleting cat:', e);
             });
     }
 
@@ -86,15 +86,28 @@ angular.module('myApp')
         }
     }
 
-    function formatBirthday() {
-        self.cat.birthday = new Date(self.cat.birthday).getTime().toString();
+    function getOffset() {
+        var offset = new Date().getTimezoneOffset() / 60;
+        offset = offset < 10 ? '0' + offset : offset;
+        return "T" + offset + ":00Z"
     }
 
+    /*
+     * formatBirthday ensures that a user-entered date (e.g., "2001-02-03") is sent to the server with the
+     * correct timezone data (e.g., "2001-02-03T06:00Z" for a user in Texas).
+     */
+    function formatBirthday() {
+        self.cat.birthday = self.cat.birthday + getOffset();
+    }
+
+    /*
+     * birthday comes from the server as a timestamp.
+     */
     function translateBirthday() {
         for (var i = 0; i < self.cats.length; i++) {
             var birthdayTimestamp = self.cats[i].birthday
             if (birthdayTimestamp !== null) {
-                var birthday = new Date(birthdayTimestamp).toDateString();
+                var birthday = new Date(birthdayTimestamp).toISOString().split('T')[0];
                 self.cats[i].birthday = birthday; }
         }
     }

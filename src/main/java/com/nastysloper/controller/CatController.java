@@ -28,6 +28,18 @@ public class CatController {
         return new ResponseEntity<>(cats, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/cat/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Cat> getCat(@PathVariable("id") Long id) {
+        System.out.println("Fetching cat with id " + id);
+        try {
+            Cat cat = catManager.findById(id);
+            return new ResponseEntity<Cat>(cat, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            System.out.println("Cat with id " + id + " not found.");
+            return new ResponseEntity<Cat>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     // Synchronous request
     @RequestMapping(value = "/createCat", method = RequestMethod.POST)
     public ModelAndView createSyncCat(@ModelAttribute("Cat") Cat newCat) {
@@ -39,18 +51,6 @@ public class CatController {
         }
         catManager.createNewCat(newCat);
         return new ModelAndView("redirect:/home");
-    }
-
-    @RequestMapping(value = "/cat/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Cat> getCat(@PathVariable("id") Long id) {
-        System.out.println("Fetching cat with id " + id);
-        try {
-            Cat cat = catManager.findById(id);
-            return new ResponseEntity<Cat>(cat, HttpStatus.OK);
-        } catch (NoSuchElementException e) {
-            System.out.println("Cat with id " + id + " not found.");
-            return new ResponseEntity<Cat>(HttpStatus.NOT_FOUND);
-        }
     }
 
     // Async request
