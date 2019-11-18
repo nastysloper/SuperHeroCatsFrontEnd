@@ -28,6 +28,7 @@ angular.module('myApp')
     }
 
     function submit() {
+        addTimezoneToBirthday();
         if (self.cat.id === null) {
             $log.log('Saving New Super Hero Cat', self.cat);
             createCat(self.cat);
@@ -43,7 +44,6 @@ angular.module('myApp')
                 $log.warn("Cannot create duplicate cat in JS controller.");
                 throw "A cat with this name already exists!";
             } else {
-                formatBirthday();
                 CatService.createCat(cat)
                     .then(fetchCats)
                     .then(reset)
@@ -93,10 +93,10 @@ angular.module('myApp')
     }
 
     /*
-     * formatBirthday ensures that a user-entered date (e.g., "2001-02-03") is sent to the server with the
+     * addTimezoneToBirthday ensures that a user-entered date (e.g., "2001-02-03") is sent to the server with the
      * correct timezone data (e.g., "2001-02-03T06:00Z" for a user in Texas).
      */
-    function formatBirthday() {
+    function addTimezoneToBirthday() {
         self.cat.birthday = self.cat.birthday + getOffset();
     }
 

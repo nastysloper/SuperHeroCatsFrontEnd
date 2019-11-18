@@ -84,8 +84,10 @@ public class CatController {
         Cat thisCat = catManager.findById(id);
         System.out.println("Updating Cat with id " + id);
         thisCat.setName(cat.getName());
+        thisCat.setImage(cat.getImage());
         thisCat.setPower(cat.getPower());
         thisCat.setWeakness(cat.getWeakness());
+        thisCat.setBirthday(cat.getBirthday());
         catManager.updateCat(thisCat);
         return new ResponseEntity<Cat>(thisCat, HttpStatus.OK);
     }
