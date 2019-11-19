@@ -5,12 +5,12 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.nastysloper</groupId>
-  <artifactId>totem-pole</artifactId>
+  <artifactId>super-cats</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>war</packaging>
 
-  <name>totem-pole Maven Webapp</name>
-  <url>http://localhost:8000</url>
+  <name>Super Cats Frontend Maven Webapp</name>
+  <url>http://localhost:8085</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -85,10 +85,16 @@
       <version>5.4.2</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>compile</scope>
+    </dependency>
   </dependencies>
 
   <build>
-    <finalName>totem-pole</finalName>
+    <finalName>super-cats</finalName>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <plugin>

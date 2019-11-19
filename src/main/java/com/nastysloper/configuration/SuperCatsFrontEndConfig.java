@@ -12,7 +12,7 @@ import org.springframework.web.servlet.view.JstlView;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "com.nastysloper")
-public class TotemPoleConfig extends WebMvcConfigurerAdapter {
+public class SuperCatsFrontEndConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {

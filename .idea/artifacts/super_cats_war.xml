@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="super-cats:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>super-cats</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="super-cats.war">
+      <element id="artifact" artifact-name="super-cats:war exploded" />
+    </root>
+  </artifact>
+</component>

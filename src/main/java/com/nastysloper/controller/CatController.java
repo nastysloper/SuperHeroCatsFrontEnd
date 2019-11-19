@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.sql.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -89,6 +88,6 @@ public class CatController {
         thisCat.setWeakness(cat.getWeakness());
         thisCat.setBirthday(cat.getBirthday());
         catManager.updateCat(thisCat);
-        return new ResponseEntity<Cat>(thisCat, HttpStatus.OK);
+        return new ResponseEntity<>(thisCat, HttpStatus.OK);
     }
 }

@@ -5,11 +5,11 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 import javax.servlet.Filter;
 
 
-public class TotemPoleInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+public class SuperCatsFrontEndInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[] { TotemPoleConfig.class };
+        return new Class[] { SuperCatsFrontEndConfig.class };
     }
 
     @Override

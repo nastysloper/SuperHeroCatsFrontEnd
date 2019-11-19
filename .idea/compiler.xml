@@ -6,8 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="totempole" />
+        <module name="super-cats" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="super-cats" target="12" />
+    </bytecodeTargetLevel>
   </component>
 </project>

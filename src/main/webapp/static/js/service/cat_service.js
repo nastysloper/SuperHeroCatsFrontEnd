@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('myApp').factory('CatService', ['$http', function ($http) {
-    var REST_SERVICE_URI = "http://localhost:8080/totempole_war_exploded/";
+    var REST_SERVICE_URI = "http://localhost:8080/super_cats_war_exploded/";
 
     var factory = {
         fetchAllCats: fetchAllCats,
