@@ -41,7 +41,7 @@
     <div class="flash-message-sync hidden">
         <h3 class="success-message-sync hidden">Success! Your Super Cat has been created.</h3>
     </div>
-    <form action="/totempole_war_exploded/createCat" name="Cat" method="POST">
+    <form action="http://localhost:8080/super_cats_war_exploded/createCat" name="Cat" method="POST">
         <h3>Synchronous Submit</h3>
         <div><label for="image">Photo URL:<input type="text" id="image" name="image"></label></div><br>
         <div><label for="name">Name <span class="required">(required)</span>:<input type="text" id="name" name="name" required></label></div><br>

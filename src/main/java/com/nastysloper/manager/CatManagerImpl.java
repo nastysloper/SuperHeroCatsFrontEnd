@@ -3,9 +3,8 @@ package com.nastysloper.manager;
 import com.nastysloper.model.Cat;
 import com.nastysloper.service.CatService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 
 @Service("CatManager")
 public class CatManagerImpl implements CatManager {
@@ -13,18 +12,13 @@ public class CatManagerImpl implements CatManager {
     @Autowired
     CatService catService;
 
-    public ArrayList<Cat> findAllCats() {
+    public ResponseEntity<Cat[]> findAllCats() {
         return catService.findAllCats();
     }
 
     @Override
-    public void createNewCat(Cat cat) {
-        catService.saveCat(cat);
-    }
-
-    @Override
-    public Cat findById(Long id) {
-        return catService.findById(id);
+    public ResponseEntity<Cat> createNewCat(Cat cat) {
+        return catService.saveCat(cat);
     }
 
     @Override

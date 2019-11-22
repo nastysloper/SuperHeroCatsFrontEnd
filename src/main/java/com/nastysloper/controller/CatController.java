@@ -19,35 +19,14 @@ public class CatController {
     CatManager catManager;
 
     @RequestMapping(value = "/cats", method = RequestMethod.GET)
-    public ResponseEntity<List<Cat>> listAllCats() {
-        List<Cat> cats = catManager.findAllCats();
-        if (cats.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(cats, HttpStatus.OK);
+    public ResponseEntity<Cat[]> findAllCats() {
+        return catManager.findAllCats();
     }
 
-    @RequestMapping(value = "/cat/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Cat> getCat(@PathVariable("id") Long id) {
-        System.out.println("Fetching cat with id " + id);
-        try {
-            Cat cat = catManager.findById(id);
-            return new ResponseEntity<Cat>(cat, HttpStatus.OK);
-        } catch (NoSuchElementException e) {
-            System.out.println("Cat with id " + id + " not found.");
-            return new ResponseEntity<Cat>(HttpStatus.NOT_FOUND);
-        }
-    }
-
+    // TODO: update this method on the Backend.
     // Synchronous request
     @RequestMapping(value = "/createCat", method = RequestMethod.POST)
     public ModelAndView createSyncCat(@ModelAttribute("Cat") Cat newCat) {
-
-        Cat cat = catManager.findByName(newCat.getName());
-        if (cat != null) {
-            System.out.println("A cat with the name " + newCat.getName() + " already exists.");
-            return new ModelAndView("redirect:/home");
-        }
         catManager.createNewCat(newCat);
         return new ModelAndView("redirect:/home");
     }
@@ -55,13 +34,7 @@ public class CatController {
     // Async request
     @RequestMapping(value = "/cat", method = RequestMethod.POST)
     public ResponseEntity<Cat> createAsyncCat(@RequestBody Cat newCat) {
-        Cat cat = catManager.findByName(newCat.getName());
-        if (cat != null) {
-            System.out.println("A super hero cat named " + newCat.getName() + " already exists.");
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        }
-
-        System.out.println("Creating super hero cat " + newCat.getName() + ".");
+        System.out.println("Attempting to creating super hero cat " + newCat.getName() + ".");
         catManager.createNewCat(newCat);
         return new ResponseEntity<>(newCat, HttpStatus.CREATED);
     }
@@ -69,25 +42,14 @@ public class CatController {
     @RequestMapping(value = "/cat/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Cat> deleteCat(@PathVariable("id") Long id) {
         System.out.println("Fetching and deleting Cat with id " + id);
-        Cat cat = catManager.findById(id);
-        if (cat == null) {
-            System.out.println("Unable to delete cat with id " + id + ".");
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
         catManager.deleteCat(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @RequestMapping(value = "/cat/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Cat> updateCat(@PathVariable("id") Long id, @RequestBody Cat cat) {
-        Cat thisCat = catManager.findById(id);
         System.out.println("Updating Cat with id " + id);
-        thisCat.setName(cat.getName());
-        thisCat.setImage(cat.getImage());
-        thisCat.setPower(cat.getPower());
-        thisCat.setWeakness(cat.getWeakness());
-        thisCat.setBirthday(cat.getBirthday());
-        catManager.updateCat(thisCat);
-        return new ResponseEntity<>(thisCat, HttpStatus.OK);
+        catManager.updateCat(cat);
+        return new ResponseEntity<>(cat, HttpStatus.OK);
     }
 }

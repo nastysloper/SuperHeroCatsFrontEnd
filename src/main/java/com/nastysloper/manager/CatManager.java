@@ -1,16 +1,13 @@
 package com.nastysloper.manager;
 
 import com.nastysloper.model.Cat;
-
-import java.util.ArrayList;
+import org.springframework.http.ResponseEntity;
 
 public interface CatManager {
 
-    ArrayList<Cat> findAllCats();
+    ResponseEntity<Cat[]> findAllCats();
 
-    void createNewCat(Cat cat);
-
-    Cat findById(Long id);
+    ResponseEntity<Cat> createNewCat(Cat cat);
 
     Cat findByName(String name);
 

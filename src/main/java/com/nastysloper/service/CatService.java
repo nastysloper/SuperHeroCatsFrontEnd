@@ -1,18 +1,18 @@
 package com.nastysloper.service;
 
 import com.nastysloper.model.Cat;
+import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface CatService {
 
-    Cat findById(Long id);
-
     Cat findByName(String name);
 
-    ArrayList<Cat> findAllCats();
+    ResponseEntity<Cat[]> findAllCats();
 
-    void saveCat(Cat cat);
+    ResponseEntity<Cat> saveCat(Cat cat);
 
     void deleteCatById(Long id);
 

@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('myApp').factory('CatService', ['$http', function ($http) {
-    var REST_SERVICE_URI = "http://localhost:8080/super_cats_war_exploded/";
+    // update this to hit the controller
+    var CONTROLLER_URI = "http://localhost:8085/super_cats_war_exploded/";
 
     var factory = {
         fetchAllCats: fetchAllCats,
@@ -11,19 +12,19 @@ angular.module('myApp').factory('CatService', ['$http', function ($http) {
     };
 
     function fetchAllCats() {
-        return $http.get(REST_SERVICE_URI + 'cats');
+        return $http.get(CONTROLLER_URI + 'cats');
     }
 
     function createCat(cat) {
-        return $http.post(REST_SERVICE_URI + 'cat', cat);
+        return $http.post(CONTROLLER_URI + 'cat', cat);
     }
 
     function updateCat(cat, id) {
-        return $http.put(REST_SERVICE_URI + 'cat/' + id, cat);
+        return $http.put(CONTROLLER_URI + 'cat/' + id, cat);
     }
 
     function deleteCat(id) {
-        return $http.delete(REST_SERVICE_URI + 'cat/' + id);
+        return $http.delete(CONTROLLER_URI + 'cat/' + id);
     }
 
     return factory

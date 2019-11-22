@@ -4,7 +4,6 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 
 import javax.servlet.Filter;
 
-
 public class SuperCatsFrontEndInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     @Override
@@ -20,11 +19,5 @@ public class SuperCatsFrontEndInitializer extends AbstractAnnotationConfigDispat
     @Override
     protected String[] getServletMappings() {
         return new String[] { "/" };
-    }
-
-    @Override
-    protected Filter[] getServletFilters() {
-        Filter[] singletonFilter = { new CORSFilter() };
-        return singletonFilter;
     }
 }
